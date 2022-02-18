@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import {render, fireEvent} from '@testing-library/vue'
 import { flushPromises } from '@vue/test-utils'
-import router from '../../router'
+import router from '@/router/index'
 import App from '@/App.vue'
 import Register from '@/views/Register/Index.vue'
 
