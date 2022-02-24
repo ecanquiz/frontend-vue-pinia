@@ -1,38 +1,38 @@
-import ApiService from "./ApiService";
+import Http from "@/models/Http";
 
 export default {
     async login(payload) {
     console.log("-------------------");
     console.log(process.env.VUE_APP_API_URL);
     console.log("-------------------");
-    await ApiService.get("/sanctum/csrf-cookie");
-    return ApiService.post("/login", payload);
+    await Http.get("/sanctum/csrf-cookie");
+    return Http.post("/login", payload);
   },
   logout() {
-    return ApiService.post("/logout");
+    return Http.post("/logout");
   },
   async forgotPassword(payload) {
-    await ApiService.get("/sanctum/csrf-cookie");
-    return ApiService.post("/forgot-password", payload);
+    await Http.get("/sanctum/csrf-cookie");
+    return Http.post("/forgot-password", payload);
   },
   getAuthUser() {
-    return ApiService.get("/api/users/auth");
+    return Http.get("/api/users/auth");
   },
   async resetPassword(payload) {
-    await ApiService.get("/sanctum/csrf-cookie");
-    return ApiService.post("/reset-password", payload);
+    await Http.get("/sanctum/csrf-cookie");
+    return Http.post("/reset-password", payload);
   },
   updatePassword(payload) {
-    return ApiService.put("/user/password", payload);
+    return Http.put("/user/password", payload);
   },
   async registerUser(payload) {
-    await ApiService.get("/sanctum/csrf-cookie");
-    return ApiService.post("/register", payload);
+    await Http.get("/sanctum/csrf-cookie");
+    return Http.post("/register", payload);
   },
   sendVerification(payload) {
-    return ApiService.post("/email/verification-notification", payload);
+    return Http.post("/email/verification-notification", payload);
   },
   updateUser(payload) {
-    return ApiService.put("/user/profile-information", payload);
+    return Http.put("/user/profile-information", payload);
   },
 };
