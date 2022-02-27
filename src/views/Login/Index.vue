@@ -1,3 +1,7 @@
+<script setup>
+  import Form from "./Form.vue";
+</script>
+
 <template>
   <div class="p-5 m-auto w-full sm:w-4/12">
     <h2 class="mb-4 text-xl text-center">Inicio de Sesión</h2>
@@ -13,12 +17,3 @@
     </p>
   </div>
 </template>
-
-<script>
-import Form from "./Form.vue";
-
-export default {
-  name: "Login",
-  components: { Form }
-};
-</script>
