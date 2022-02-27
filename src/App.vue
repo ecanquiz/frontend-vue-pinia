@@ -1,29 +1,19 @@
-<script>
-import { defineComponent, computed } from "vue";
-import { useRouter } from "vue-router";
+<script setup>
+import { computed } from "vue"
+import { useRouter } from "vue-router"
 
-const defaultLayout = "default";
-
-export default defineComponent({
-  setup() {
-    const { currentRoute } = useRouter();
-
-    const layout = computed(
-      () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
-    );
-
-    return {
-      layout,
-    };
-  },
-});
+const defaultLayout = "default"
+const { currentRoute } = useRouter()
+const layout = computed(
+  () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
+)
 </script>
 
 <template>
   <component :is="layout">
     <router-view v-slot="{Component}">
       <transition name="fade" mode="out-in">
-        <component :is="Component" :key="$route.paht"></component>
+        <component :is="Component" :key="$route.path"></component>
       </transition>
     </router-view>
   </component>

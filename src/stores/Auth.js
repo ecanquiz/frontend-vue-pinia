@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
     error: null,
   }),
   actions: {  
-    async getAuthUser() {         
+    async getAuthUser() {
       this.loading = true;
       try {
         const response = await AuthService.getAuthUser();        
