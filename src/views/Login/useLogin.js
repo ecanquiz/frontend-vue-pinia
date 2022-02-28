@@ -2,7 +2,7 @@ import { ref, computed } from "vue"
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/Auth'
 import AuthService from "@/services/AuthService.js";
-//import { getError } from "@/utils/helpers.js";
+import { getError } from "@/utils/helpers.js";
 
 export function useLogin() {
     const router = useRouter();
@@ -26,14 +26,14 @@ export function useLogin() {
                 //this.$store.dispatch("auth/setGuest", { value: "isNotGuest" });
                 router.push("/dashboard");
             } else {
-                const error = Error(
+                const err = Error(
                     "Unable to fetch user after login, check your API settings."
                 );
-                error.name = "Fetch User";
-                throw error;
+                err.name = "Fetch User";
+                throw err;
             }
-        } catch (error) {
-            error.value = error//getError(error);
+        } catch (err) {
+            error.value = getError(err);
         } finally {
             sending.value = false;
         }

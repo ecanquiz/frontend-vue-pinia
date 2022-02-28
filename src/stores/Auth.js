@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-//import { getError } from "@/utils/helpers";
-import router from "@/router";
+import { getError } from "@/utils/helpers";
+//import router from "@/router";
 import AuthService from "@/services/AuthService";
 
 export const useAuthStore = defineStore('auth', {
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
       } catch (error) {
         this.loading = false;        
         this.user = null;        
-        this.error = error//getError(error);
+        this.error = getError(error);
       }
     },
     setGuest({ value }) {
