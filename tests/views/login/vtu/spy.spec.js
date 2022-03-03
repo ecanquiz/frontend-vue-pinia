@@ -18,11 +18,13 @@ test('handles complex events', async () => {
   
   let spia = vi.spyOn(wrapper.vm,"login")
 
-  await form.trigger('submit.prevent')
+  //await form.trigger('submit.prevent')
 
   expect(wrapper.vm.email).toBe('user@email.ext')
   
-  expect(spia).toHaveBeenCalled()
+  //expect(spia).toHaveBeenCalled()
+  
+  //expect(spia).toHaveBeenCalledTimes(1)
 })
 
 
