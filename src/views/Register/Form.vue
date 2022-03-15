@@ -1,92 +1,115 @@
-<template>
-  <form @submit.prevent="login">
-    <BaseInput
-      type="email"
-      label="Correo Electrónico"
-      name="email"
-      v-model="email"
-      autocomplete="email"
-      placeholder="luke@jedi.com"
-      class="mb-2"
-    />
-    <BaseInput
-      type="password"
-      label="Contraseña"
-      name="password"
-      v-model="password"
-      class="mb-4"
-    />
+<script setup>
+import { reactive } from "vue"
+import BaseInput from "@/components/BaseInput.vue"
 
-<label class="flex items-center"><input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50i mb-4" name="remember"><span class="ml-2 mb-3 text-sm text-gray-600">Recuérdame</span></label>
 
-    <div class="flex items-center justify-between mt-4">
+const form =  reactive({
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      terms: false,
+})
 
-      <BaseBtn
-        type="submit"
-        :text="sending ? 'Iniciando sesión...' : 'Iniciar sesión'"
-        :isDisabled='sending'
-      />
-
-      <router-link to="/forgot-password" class="underline text-sm text-gray-600 hover:text-gray-900">
-        ¿Olvidaste tu contraseña?
-      </router-link>
-
-    </div>
-
-    <FlashMessage :error="error" />
-  </form>
-</template>
-
-<script>
-import { getError } from "@/utils/helpers.js";
-import BaseBtn from "@/components/BaseBtn.vue";
-import BaseInput from "@/components/BaseInput.vue";
-import AuthService from "@/services/AuthService.js";
-import FlashMessage from "@/components/FlashMessage.vue";
-
-export default {
-  name: "LoginView",
-  components: {
-    BaseBtn,
-    BaseInput,
-    FlashMessage,
-  },
-  data() {
-    return {
-      sending: false,
-      email: null,
-      password: null,
-      error: null,
-    };
-  },
-  methods: {
-    async login() {
-      const payload = {
-        email: this.email,
-        password: this.password,
-      };
-      this.error = null;
-      try {
-        this.sending = true;
-        await AuthService.login(payload);
-        const authUser = await this.$store.dispatch("auth/getAuthUser");
-        if (authUser) {
-          this.$store.dispatch("auth/setGuest", { value: "isNotGuest" });
-          this.$router.push("/dashboard");
-        } else {
-          const error = Error(
-            "Unable to fetch user after login, check your API settings."
-          );
-          error.name = "Fetch User";
-          throw error;
-        }
-      } catch (error) {
-        this.error = getError(error);
-      } finally {
-        this.sending = false;
-      }
-      
-    },
-  },
-};
 </script>
+
+<template>
+      <!--jet-authentication-card-->
+        <!--template #logo>
+            <jet-authentication-card-logo />
+        </template-->
+
+        <!--jet-validation-errors class="mb-4" /-->
+
+        <form @submit.prevent="submit">
+            <div>
+                    <BaseInput
+                      type="text"
+                      label="Nombre"
+                      name="name"
+                      v-model="form.name"
+                      autocomplete="Name"
+                      placeholder="Name"
+                      class="mb-2"
+                    />
+                <!--label for="name" value="Nombre">
+                <input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+                </label-->
+            </div>
+
+            <div class="mt-4">
+                <BaseInput
+                  type="email"
+                  label="Correo Electrónico"
+                  name="email"
+                  v-model="form.email"
+                  autocomplete="email"
+                  placeholder="email@domain.ext"      
+                  class="mb-2"
+                  data-testid="email-input"      
+                />
+                <!--label for="email" value="Correo Electrónico">
+                <input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
+                </label-->
+            </div>
+
+            <div class="mt-4">
+               <BaseInput
+                  type="password"
+                  label="Contraseña"
+                  name="password"
+                  v-model="form.password"
+                  autocomplete="password"
+                  placeholder="password"      
+                  class="mb-2"
+                  data-testid="password-input"      
+                /> 
+
+
+                <!--label for="password" value="Contraseña">
+                <input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
+                </label-->
+            </div>
+
+            <div class="mt-4">
+                <BaseInput
+                  type="password"
+                  label="Confirmación de Contraseña"
+                  name="password_confirmation"
+                  v-model="form.password_confirmation"
+                  autocomplete="password confirmation"
+                  placeholder="password confirmation"      
+                  class="mb-2"
+                  data-testid="password_confirmation-input"      
+                />
+                <!--label for="password_confirmation" value="Confirmar Contraseña">
+                <input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+                </label-->                
+            </div>
+
+            <!--div class="mt-4" v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature"-->
+                     <div class="mt-4" v-if="true">
+
+                <label for="terms">
+                    <div class="flex items-center">
+                        <!--checkbox name="terms" id="terms" v-model:checked="form.terms" /-->
+
+                        <div class="ml-2">
+                            I agree to the <a target="_blank" href="/terms.show" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" href="/policy.show" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+                <a href="/login" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    ¿Ya registrado?
+                </a>
+
+                <button class="ml-4 btn btn-primary" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Registrarse
+                </button>
+            </div>
+        </form>
+    <!--/jet-authentication-card-->
+</template>
