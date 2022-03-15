@@ -17,9 +17,9 @@ import Form from "./Form.vue";
 
     <p class="mt-2 text-center text-gray-500">
       <router-link
-        to="/register"
+        to="/login"
         class="text-gray-500 transition hover:text-gray-600"
-        >Regístrese para obtener una cuenta</router-link
+        >¿Ya registrado?</router-link
       >
     </p>
   </div>
