@@ -1,7 +1,7 @@
 import axios from "axios";
 import init from "./init";
 
-class Http {
+export class Http {
   constructor( init ) {    
     this.defaultInit()    
     let service = axios.create({

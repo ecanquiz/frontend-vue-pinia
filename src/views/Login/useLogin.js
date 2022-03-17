@@ -10,10 +10,10 @@ export function useLogin() {
     const error = ref(null)
     const sending = ref(false)
 
-    const login = async () => {
+    const login = async (form) => {
         const payload = {
-            email: email.value,
-            password: password.value,
+            email: form.email,
+            password: form.password,
         }
         error.value = null;
         try {
