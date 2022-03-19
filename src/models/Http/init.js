@@ -6,11 +6,11 @@ export default {
   withCredentials: true, 
   handleError(error) {  
     const storeAuth = computed(() => useAuthStore())
-    
+
     if (error.response
       && [401, 419].includes(error.response.status)    
-      && auth.value.authUser 
-      && !auth.value.guest
+      && storeAuth.value.authUser 
+      && !storeAuth.value.guest
     ) {
       storeAuth.value.logout();
     }
