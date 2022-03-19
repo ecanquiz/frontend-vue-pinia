@@ -44,21 +44,21 @@ export class Http {
     });
   }
 
-  post(path, bodyPayload = false) {
+  post(path, payload = false) {
     return this.service.request({
       method: "POST",
       url: path,
       responseType: "json",
-      data: bodyPayload
+      data: payload
     });
   }
 
-  delete(path, bodyPayload = false) {
+  delete(path, payload = false) {
     return this.service.request({
       method: "DELETE",
       url: path,
       responseType: "json",
-      data: bodyPayload
+      data: payload
     });
   }
 }

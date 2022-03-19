@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
         this.error = getError(error);        
       }
     },
-    setGuest({ value }) {    
+    setGuest({ value }) {  
       window.localStorage.setItem("guest", value);
     },   
   },

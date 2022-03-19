@@ -1,8 +1,10 @@
-import init from "@/models/Http/init.js"; 
+import { createPinia } from 'pinia'
+import { useAuthStore } from '@/stores/Auth' 
+import init from "@/models/Http/init.js";
 
-describe('Http', () => {
-  it('should be initialized well', () => {
-    expect(init.baseURL).toBe(process.env.VUE_APP_API_URL)
-    expect(init.withCredentials).toBe(true)   
-  })  
+test('should be initialized well', () => { 
+  expect(init).toHaveProperty('handleError') 
+  expect(init.handleError).toBeDefined()
+  expect(init.baseURL).toBe(process.env.VUE_APP_API_URL)
+  expect(init.withCredentials).toBe(true)   
 })
